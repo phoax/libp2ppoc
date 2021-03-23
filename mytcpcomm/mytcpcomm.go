@@ -7,12 +7,10 @@ import (
 	"log"
 	"os"
 	"github.com/libp2p/go-libp2p-core/network"
+
+	
+	"github.com/phoax/libp2ppoc/mymessage"
 )
-
-func Test() {
-	fmt.Println("HELLO MONDE")
-}
-
 
 func HandleStream(s network.Stream) {
 	log.Println("Got a new stream!")
@@ -56,4 +54,9 @@ func WriteData(rw *bufio.ReadWriter) {
 		rw.Flush()
 	}
 
+}
+
+func WriteData2(rw *bufio.ReadWriter, msg mymessage.FCRMessage) {
+	rw.WriteString(fmt.Sprintf("%s\n", msg))
+	rw.Flush()
 }

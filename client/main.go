@@ -42,6 +42,8 @@ import (
 
 	"github.com/phoax/libp2ppoc/mytcpcomm"
 	
+	"github.com/phoax/libp2ppoc/mymessage"
+	
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	// "github.com/libp2p/go-libp2p-core/network"
@@ -134,7 +136,17 @@ func main() {
 	rw := bufio.NewReadWriter(bufio.NewReader(s), bufio.NewWriter(s))
 
 	// Create a thread to read and write data.
-	go mytcpcomm.WriteData(rw)
+
+
+	msg := mymessage.FCRMessage{
+		MessageType     : 42,
+		ProtocolVersion   : 42,
+		ProtocolSupported : nil,
+		MessageBody       : nil,
+		Signature         :"hellosig",
+	}
+
+	go mytcpcomm.WriteData2(rw, msg)
 	go mytcpcomm.ReadData(rw)
 
 	// Hang forever.
